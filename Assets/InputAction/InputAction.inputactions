@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "name": "InputAction",
+    "maps": [
+        {
+            "name": "TestInputAction",
+            "id": "1b737809-9418-4899-8f5c-e97e8b6f0c25",
+            "actions": [
+                {
+                    "name": "TestPrint",
+                    "type": "Button",
+                    "id": "b44b4be8-042d-4bde-bd24-49b94a299bb6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cade9e30-dd93-4907-bd84-378e6c94bb60",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestPrint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
