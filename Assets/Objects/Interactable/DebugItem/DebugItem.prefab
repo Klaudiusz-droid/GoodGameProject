@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7405669133438250860}
   - component: {fileID: 4424087826297727423}
   - component: {fileID: 28093688521685799}
+  - component: {fileID: 2233924052814303943}
   m_Layer: 3
   m_Name: Sphere
   m_TagString: Untagged
@@ -160,3 +161,16 @@ MonoBehaviour:
   outlineMaterial: {fileID: 2100000, guid: f3b6a1d2c4e54af7b8d9e0c1a2b3c4d5, type: 2}
   outlineColor: {r: 0.6, g: 0.6, b: 0.2, a: 1}
   outlineWidth: 0.03
+--- !u!114 &2233924052814303943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5042937412266259941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06a9fca5daa79f4d91bb94696318689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WorldItem
+  itemDataAsset: {fileID: 11400000, guid: 3d6bfd5c08ccd974ea5bb520ea0a81ed, type: 2}

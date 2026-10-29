@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Inventory/Weapon Data")]
-public class WeaponData : ScriptableObject
+public class WeaponData : ScriptableObject, IItemData
 {
     [SerializeField] private string itemId;
     [SerializeField] private string itemName;
@@ -18,4 +18,5 @@ public class WeaponData : ScriptableObject
     public float Knockback => knockback;
     public float MaxDurability => maxDurability;
     public GameObject Prefab => prefab;
+    public int MaxStackSize => 1;
 }

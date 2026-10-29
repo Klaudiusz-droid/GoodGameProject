@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewMaterial", menuName = "Inventory/Material Data")]
-public class MaterialData : ScriptableObject
+public class MaterialData : ScriptableObject, IItemData
 {
     [SerializeField] private string itemName;
     [SerializeField] private Sprite icon;
