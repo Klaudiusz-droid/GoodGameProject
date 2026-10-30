@@ -8,8 +8,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int slotCount = 5;
 
     private InventorySlot[] slots;
+    private int activeSlotIndex = -1;
 
     public static event Action<int, InventorySlot> OnItemAdded;
+    public static event Action<int> OnActiveSlotSelected;
 
     public int SlotCount => slots.Length;
     public InventorySlot GetSlot(int index) => slots[index];
@@ -24,6 +26,20 @@ public class PlayerInventory : MonoBehaviour
         if (!context.performed) return;
 
         TryPickUpTarget();
+    }
+
+    public void OnInventorySlot1(InputAction.CallbackContext context) => SelectSlot(0, context);
+    public void OnInventorySlot2(InputAction.CallbackContext context) => SelectSlot(1, context);
+    public void OnInventorySlot3(InputAction.CallbackContext context) => SelectSlot(2, context);
+    public void OnInventorySlot4(InputAction.CallbackContext context) => SelectSlot(3, context);
+    public void OnInventorySlot5(InputAction.CallbackContext context) => SelectSlot(4, context);
+
+    private void SelectSlot(int index, InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        activeSlotIndex = activeSlotIndex == index ? -1 : index;
+        OnActiveSlotSelected?.Invoke(activeSlotIndex);
     }
 
     private void TryPickUpTarget()
