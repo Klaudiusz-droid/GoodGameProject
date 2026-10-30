@@ -1,0 +1,31 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class InventoryUI : MonoBehaviour
+{
+    [SerializeField] private Image[] slotImages;
+    [SerializeField] private TMP_Text[] stackTexts;
+
+    private void OnEnable()
+    {
+        PlayerInventory.OnItemAdded += HandleItemAdded;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInventory.OnItemAdded -= HandleItemAdded;
+    }
+
+    private void HandleItemAdded(int slotIndex, InventorySlot slot)
+    {
+        if (slotIndex < 0 || slotIndex >= slotImages.Length) return;
+
+        slotImages[slotIndex].sprite = slot.Item.Icon;
+
+        if (slotIndex < stackTexts.Length)
+        {
+            stackTexts[slotIndex].text = slot.StackCount > 1 ? slot.StackCount.ToString() : string.Empty;
+        }
+    }
+}

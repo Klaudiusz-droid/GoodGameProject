@@ -9,7 +9,7 @@ public class PlayerInventory : MonoBehaviour
 
     private InventorySlot[] slots;
 
-    public event Action OnInventoryChanged;
+    public static event Action<int, InventorySlot> OnItemAdded;
 
     public int SlotCount => slots.Length;
     public InventorySlot GetSlot(int index) => slots[index];
@@ -45,7 +45,7 @@ public class PlayerInventory : MonoBehaviour
             if (slots[i] != null && slots[i].Item == item && slots[i].StackCount < item.MaxStackSize)
             {
                 slots[i].StackCount++;
-                OnInventoryChanged?.Invoke();
+                OnItemAdded?.Invoke(i, slots[i]);
                 return true;
             }
         }
@@ -54,7 +54,7 @@ public class PlayerInventory : MonoBehaviour
         if (freeSlotIndex == -1) return false;
 
         slots[freeSlotIndex] = new InventorySlot { Item = item, StackCount = 1 };
-        OnInventoryChanged?.Invoke();
+        OnItemAdded?.Invoke(freeSlotIndex, slots[freeSlotIndex]);
         return true;
     }
 }
