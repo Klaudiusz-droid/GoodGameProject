@@ -7,9 +7,10 @@ public class PlayerMovement : MonoBehaviour
 {
     private CharacterController controller;
 
-    [SerializeField] private int WalkSpeed = 5;
-    [SerializeField] private int RunSpeed = 9;
-    [SerializeField] private int Gravity = -20;
+    [SerializeField] private float WalkSpeed = 5.0f;
+    [SerializeField] private float RunSpeed = 9.0f;
+    [SerializeField] private float Gravity = -20.0f;
+	[SerializeField] private float JumpHeight = 1.0f;
 
     [SerializeField] private Transform playerCamera;
     [SerializeField] private float mouseSensitivity = 0.1f;
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isRunning;
 
+	private bool jumpRequested;
+	private bool isGrounded;
 
 
     private void Start()
@@ -38,8 +41,11 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerMoving();
         CameraLook();
+		CheckGround();
         ApplyGravity();
     }
+	
+
 
 
 
@@ -56,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         lookInput = context.ReadValue<Vector2>();
     }
 
-	//Zaczyna i kończy bieg xd
+	//Zaczyna i kończy bieg
     public void OnRun(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -64,6 +70,15 @@ public class PlayerMovement : MonoBehaviour
         else if (context.canceled)
             isRunning = false;
     }
+
+	//Pozwala na skos
+	public void OnJump(InputAction.CallbackContext context)
+	{
+		if (context.performed)
+		{
+			jumpRequested = true;
+		}
+	}
 
 
 
@@ -96,16 +111,38 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(0f, lookInput.x * mouseSensitivity, 0f);
     }
 	
+	
+	//Raycast, sprawdza czy dotyka ziemi
+	private void CheckGround()
+	{
+		Vector3 rayOrigin = controller.bounds.center;
+		float rayLength = controller.bounds.extents.y + 0.30f;
+
+		isGrounded = Physics.Raycast(rayOrigin, Vector3.down, rayLength, ~0, QueryTriggerInteraction.Ignore
+		);
+	}
+
+
+
 	// Grawitacja
-    private void ApplyGravity()
-    {
-        if (controller.isGrounded && verticalVelocity < 0f)
-        {
-            verticalVelocity = -2f;
-        }
+	private void ApplyGravity()
+	{
+		if (isGrounded && verticalVelocity < 0f)
+		{
+			verticalVelocity = -2f;
+		}
 
-        verticalVelocity += Gravity * Time.deltaTime;
+		if (jumpRequested)
+		{
+			if (isGrounded)
+			{
+				verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+			}
+			jumpRequested = false;
+		}
 
-        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
-    }
+		verticalVelocity += Gravity * Time.deltaTime;
+
+		controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+	}
 }
