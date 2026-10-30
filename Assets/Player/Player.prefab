@@ -148,7 +148,10 @@ GameObject:
   - component: {fileID: 4995589745368401278}
   - component: {fileID: 2226059279460988961}
   - component: {fileID: 252586133308983236}
+  - component: {fileID: 9141857245041114496}
   - component: {fileID: 4982293202734721840}
+  - component: {fileID: 6554921072968498121}
+  - component: {fileID: 640696854606673732}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -171,6 +174,7 @@ Transform:
   m_Children:
   - {fileID: 5184421207683195259}
   - {fileID: 895596004256488041}
+  - {fileID: 5810236843417564839}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &2226059279460988961
@@ -213,11 +217,27 @@ MonoBehaviour:
   WalkSpeed: 5
   RunSpeed: 20
   Gravity: -20
-  JumpHeight: 5
-  mouseSensitivity: 0.2
   playerCamera: {fileID: 895596004256488041}
+  mouseSensitivity: 0.2
   UpCameraLookBlock: 90
   DownCameraLookBlock: -90
+--- !u!114 &9141857245041114496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588114378868659741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 782f94ffd76de3746a0f11db67197102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  interactionOrigin: {fileID: 895596004256488041}
+  interactDistance: 3
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &4982293202734721840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,31 +320,115 @@ MonoBehaviour:
     m_ActionId: beda3efa-7c25-43db-8237-593517617962
     m_ActionName: 'PlayerMovement/Dash[/Keyboard/ctrl]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnInventorySlot1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 74c0c720-22d7-4181-9e7d-7ed4d3a5b4a2
     m_ActionName: 'PlayerActions/InventorySlot1[/Keyboard/1]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnInventorySlot2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 8f9e2fbf-80a3-46db-a1ec-f3605039d3b6
     m_ActionName: 'PlayerActions/InventorySlot2[/Keyboard/2]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnInventorySlot3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fdc2cea5-b55a-4cc8-bb5b-ef670b24eb27
     m_ActionName: 'PlayerActions/InventorySlot3[/Keyboard/3]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnInventorySlot4
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 168626cf-257c-429c-b060-54d317a12a8f
     m_ActionName: 'PlayerActions/InventorySlot4[/Keyboard/4]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnInventorySlot5
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b7568330-8e6c-49ea-b392-c6888be1def3
     m_ActionName: 'PlayerActions/InventorySlot5[/Keyboard/5]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnPickUpItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 37755882-1e39-4c94-bca1-197fe012d444
     m_ActionName: 'PlayerActions/PickUpItem[/Keyboard/e]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6554921072968498121}
+        m_TargetAssemblyTypeName: PlayerInventory, Assembly-CSharp
+        m_MethodName: OnDropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 97e912b8-1a38-40c1-ac1f-de20895c1e19
     m_ActionName: 'PlayerActions/DropItem[/Keyboard/q]'
   - m_PersistentCalls:
@@ -339,11 +443,44 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c5dd31b3-f333-4924-b7f9-d37ec63fb6f2
     m_ActionName: 'PlayerActions/Heal[/Keyboard/r]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a630b059-c480-46a5-b9cd-cd051063f0e1
+    m_ActionName: 'PlayerMenus/MainMenu[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 760292458497740662}
+--- !u!114 &6554921072968498121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588114378868659741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1669f9fdd3e235469878bc0be38e30c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
+  interactor: {fileID: 9141857245041114496}
+  slotCount: 5
+  throwForce: 5
+  dropDistance: 1
+--- !u!114 &640696854606673732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588114378868659741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af2e8c0c412c82145b5e1087f1a5d85e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemViewController
+  viewpoint: {fileID: 5810236843417564839}
 --- !u!1 &5385577626200713381
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,3 +595,34 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8004778802848484848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5810236843417564839}
+  m_Layer: 0
+  m_Name: ItemViewpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5810236843417564839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8004778802848484848}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.762, y: 0, z: 0.836}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4995589745368401278}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
