@@ -9,6 +9,7 @@ public class PlayerInteractor : MonoBehaviour
     private Highlightable currentTarget;
 
     public Highlightable CurrentTarget => currentTarget;
+    public Transform InteractionOrigin => interactionOrigin != null ? interactionOrigin : transform;
 
     private void Update()
     {

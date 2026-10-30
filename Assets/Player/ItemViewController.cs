@@ -12,12 +12,14 @@ public class ItemViewController : MonoBehaviour
     {
         PlayerInventory.OnItemAdded += HandleItemAdded;
         PlayerInventory.OnActiveSlotSelected += HandleActiveSlotSelected;
+        PlayerInventory.OnItemRemoved += HandleItemRemoved;
     }
 
     private void OnDisable()
     {
         PlayerInventory.OnItemAdded -= HandleItemAdded;
         PlayerInventory.OnActiveSlotSelected -= HandleActiveSlotSelected;
+        PlayerInventory.OnItemRemoved -= HandleItemRemoved;
     }
 
     private void HandleItemAdded(int slotIndex, InventorySlot slot)
@@ -46,5 +48,13 @@ public class ItemViewController : MonoBehaviour
         {
             newView.SetActive(true);
         }
+    }
+
+    private void HandleItemRemoved(int slotIndex)
+    {
+        if (!slotViews.TryGetValue(slotIndex, out GameObject view)) return;
+
+        Destroy(view);
+        slotViews.Remove(slotIndex);
     }
 }

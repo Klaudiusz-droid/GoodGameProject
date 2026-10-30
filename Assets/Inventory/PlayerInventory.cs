@@ -6,12 +6,15 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private PlayerInteractor interactor;
     [SerializeField] private int slotCount = 5;
+    [SerializeField] private float throwForce = 5f;
+    [SerializeField] private float dropDistance = 1f;
 
     private InventorySlot[] slots;
     private int activeSlotIndex = -1;
 
     public static event Action<int, InventorySlot> OnItemAdded;
     public static event Action<int> OnActiveSlotSelected;
+    public static event Action<int> OnItemRemoved;
 
     public int SlotCount => slots.Length;
     public InventorySlot GetSlot(int index) => slots[index];
@@ -26,6 +29,13 @@ public class PlayerInventory : MonoBehaviour
         if (!context.performed) return;
 
         TryPickUpTarget();
+    }
+
+    public void OnDropItem(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        DropActiveItem();
     }
 
     public void OnInventorySlot1(InputAction.CallbackContext context) => SelectSlot(0, context);
@@ -49,28 +59,84 @@ public class PlayerInventory : MonoBehaviour
         WorldItem worldItem = interactor.CurrentTarget.GetComponent<WorldItem>();
         if (worldItem == null || worldItem.ItemData == null) return;
 
-        if (!TryAddItem(worldItem.ItemData)) return;
+        int added = AddItem(worldItem.ItemData, worldItem.StackCount);
+        if (added <= 0) return;
 
-        Destroy(worldItem.gameObject);
+        int remaining = worldItem.StackCount - added;
+        if (remaining <= 0)
+        {
+            Destroy(worldItem.gameObject);
+        }
+        else
+        {
+            worldItem.Initialize(worldItem.ItemData, remaining);
+        }
     }
 
-    private bool TryAddItem(IItemData item)
+    private int AddItem(IItemData item, int stackCount)
     {
-        for (int i = 0; i < slots.Length; i++)
+        int remaining = stackCount;
+
+        for (int i = 0; i < slots.Length && remaining > 0; i++)
         {
             if (slots[i] != null && slots[i].Item == item && slots[i].StackCount < item.MaxStackSize)
             {
-                slots[i].StackCount++;
+                int added = Mathf.Min(remaining, item.MaxStackSize - slots[i].StackCount);
+                slots[i].StackCount += added;
+                remaining -= added;
                 OnItemAdded?.Invoke(i, slots[i]);
-                return true;
             }
         }
 
-        int freeSlotIndex = Array.FindIndex(slots, slot => slot == null);
-        if (freeSlotIndex == -1) return false;
+        if (remaining > 0)
+        {
+            int freeSlotIndex = Array.FindIndex(slots, slot => slot == null);
+            if (freeSlotIndex != -1)
+            {
+                int added = Mathf.Min(remaining, item.MaxStackSize);
+                slots[freeSlotIndex] = new InventorySlot { Item = item, StackCount = added };
+                remaining -= added;
+                OnItemAdded?.Invoke(freeSlotIndex, slots[freeSlotIndex]);
+            }
+        }
 
-        slots[freeSlotIndex] = new InventorySlot { Item = item, StackCount = 1 };
-        OnItemAdded?.Invoke(freeSlotIndex, slots[freeSlotIndex]);
-        return true;
+        return stackCount - remaining;
+    }
+
+    private void DropActiveItem()
+    {
+        if (activeSlotIndex < 0) return;
+
+        InventorySlot slot = slots[activeSlotIndex];
+        if (slot == null) return;
+
+        slots[activeSlotIndex] = null;
+        OnItemRemoved?.Invoke(activeSlotIndex);
+
+        SpawnDroppedItem(slot.Item, slot.StackCount);
+    }
+
+    private void SpawnDroppedItem(IItemData item, int stackCount)
+    {
+        if (item.Prefab == null) return;
+
+        Transform origin = interactor != null ? interactor.InteractionOrigin : transform;
+        Vector3 spawnPosition = origin.position + origin.forward * dropDistance;
+
+        GameObject dropped = Instantiate(item.Prefab, spawnPosition, origin.rotation);
+
+        WorldItem worldItem = dropped.GetComponentInChildren<WorldItem>();
+        if (worldItem != null)
+        {
+            worldItem.Initialize(item, stackCount);
+        }
+
+        Rigidbody rb = dropped.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = dropped.AddComponent<Rigidbody>();
+        }
+
+        rb.AddForce(origin.forward * throwForce, ForceMode.Impulse);
     }
 }

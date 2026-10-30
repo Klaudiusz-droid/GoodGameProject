@@ -10,11 +10,13 @@ public class InventoryUI : MonoBehaviour
     private void OnEnable()
     {
         PlayerInventory.OnItemAdded += HandleItemAdded;
+        PlayerInventory.OnItemRemoved += HandleItemRemoved;
     }
 
     private void OnDisable()
     {
         PlayerInventory.OnItemAdded -= HandleItemAdded;
+        PlayerInventory.OnItemRemoved -= HandleItemRemoved;
     }
 
     private void HandleItemAdded(int slotIndex, InventorySlot slot)
@@ -26,6 +28,18 @@ public class InventoryUI : MonoBehaviour
         if (slotIndex < stackTexts.Length)
         {
             stackTexts[slotIndex].text = slot.StackCount > 1 ? slot.StackCount.ToString() : string.Empty;
+        }
+    }
+
+    private void HandleItemRemoved(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= slotImages.Length) return;
+
+        slotImages[slotIndex].sprite = null;
+
+        if (slotIndex < stackTexts.Length)
+        {
+            stackTexts[slotIndex].text = string.Empty;
         }
     }
 }

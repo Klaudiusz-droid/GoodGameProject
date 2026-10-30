@@ -169,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4982293202734721840, guid: e84a2370a64773545a7336cd1d0df63f, type: 3}
       propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4982293202734721840, guid: e84a2370a64773545a7336cd1d0df63f, type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
@@ -234,7 +234,7 @@ PrefabInstance:
     - target: {fileID: 4982293202734721840, guid: e84a2370a64773545a7336cd1d0df63f, type: 3}
       propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1958164599}
     - target: {fileID: 4982293202734721840, guid: e84a2370a64773545a7336cd1d0df63f, type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1700,6 +1700,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   interactor: {fileID: 1958164594}
   slotCount: 5
+  throwForce: 5
+  dropDistance: 1
 --- !u!114 &1958164600
 MonoBehaviour:
   m_ObjectHideFlags: 0
